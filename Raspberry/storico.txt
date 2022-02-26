@@ -1,0 +1,5 @@
+Consumo energetico 2022-02-25 12:36:45.996639 per 5 ore di utilizzo:
+   - P_avg: 0.43894766457479945 Wh 
+   - P_app: 6.404733233372244 Wh 
+   - Q: 6.380916824242496 VARh 
+
