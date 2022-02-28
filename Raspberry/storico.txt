@@ -3,3 +3,48 @@ Consumo energetico 2022-02-25 12:36:45.996639 per 5 ore di utilizzo:
    - P_app: 6.404733233372244 Wh 
    - Q: 6.380916824242496 VARh 
 
+Consumo energetico 2022-02-27 11:27:17.541911 per 1 ore di utilizzo:
+   - P_avg: 0.03226531729538668 Wh 
+   - P_app: 1.2768371698265102 Wh 
+   - Q: 1.2757635476853628 VARh 
+
+Consumo energetico 2022-02-27 11:29:32.415887 per 1 ore di utilizzo:
+   - P_avg: 0.017222352563640637 Wh 
+   - P_app: 1.2814711115136388 Wh 
+   - Q: 1.28112410839527 VARh 
+
+Consumo energetico 2022-02-28 14:35:11.189502 per 1 ore di utilizzo:
+   - P_avg: 0.07121317405426528 Wh 
+   - P_app: 1.2682239258543653 Wh 
+   - Q: 1.2656419592314077 VARh 
+
+Consumo energetico 2022-02-28 14:35:50.527372 per 2 ore di utilizzo:
+   - P_avg: 0.07929118937482774 Wh 
+   - P_app: 2.536187632465215 Wh 
+   - Q: 2.531270995637337 VARh 
+
+Consumo energetico 2022-02-28 14:50:21.792155 per 1 ore di utilizzo:
+   - P_avg: 0.08741265945456579 Wh 
+   - P_app: 5.070841484522802 Wh 
+   - Q: 5.0692874457694606 VARh 
+
+Consumo energetico 2022-02-28 15:08:39.273767 per 1 ore di utilizzo:
+   - P_avg: 0.20700528061362852 Wh 
+   - P_app: 5.06900877993801 Wh 
+   - Q: 5.061680807895015 VARh 
+
+Consumo energetico 2022-02-28 15:53:04.826065 per 1 ore di utilizzo:
+   - P_avg: 0.5488275320710072 Wh 
+   - P_app: 5.081368642005125 Wh 
+   - Q: 5.04527768165304 VARh 
+
+Consumo energetico 2022-02-28 15:55:26.760599 per 1 ore di utilizzo:
+   - P_avg: 0.4285127620847041 Wh 
+   - P_app: 5.0875170116330555 Wh 
+   - Q: 5.068162760582171 VARh 
+
+Consumo energetico 2022-02-28 15:56:16.078892 per 3 ore di utilizzo:
+   - P_avg: 1.3740341295342846 Wh 
+   - P_app: 15.2479312852715 Wh 
+   - Q: 15.156943841817412 VARh 
+

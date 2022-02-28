@@ -30,7 +30,6 @@ GPIO.output(23,GPIO.LOW)
 def main():
     REPETITION = 5
     
-    serialport = serial.Serial("/dev/ttyS0", baudrate=9600)
     
     v_ref = 3.3
     v_min = 0
@@ -38,14 +37,16 @@ def main():
     interface_accuracy = 1
     n_bit = 12
     
-    #response = input("Hai utilizzato sensori che introducono un guadagno moltiplicativo nelle misure effettuate? (S/N): ")
-    response = "N"
-    v_gain = 1
-    i_gain = 1
+    response = input("Hai utilizzato sensori che introducono un guadagno moltiplicativo nelle misure effettuate? (S/N): ").upper()
     if response == "S":
         v_gain = int(input("Guadagno per la tensione: "))
         i_gain = int(input("Guadagno per la corrente: "))
-
+    else:
+        v_gain = 1
+        i_gain = 1
+        
+    division = input("Il tuo segnale originario assume anche valori negativi? (S/N): ").upper()
+    
     
     while True:
         
@@ -60,14 +61,20 @@ def main():
         i_max_array = []
         
         for i in range(REPETITION):
+            
+            serialport = serial.Serial("/dev/ttyS0", baudrate=9600)
+            
             measures = []
+            serialport.reset_output_buffer()
             readMeasures(measures, serialport)
+            serialport.close()
 
             v_array = measures[1].split(" ")
             v_array = list(filter(None, v_array))
             v_measure = np.array(v_array[0:len(v_array)-1]).astype(np.float)
-            v_measure = ((v_measure*3.3)/4095)/v_gain        
-            v_measure = v_measure - np.amax(v_measure)/2 # To remove (forse)
+            v_measure = ((v_measure*3.3)/4095)/v_gain
+            if division == "S":
+                v_measure = v_measure - np.amax(v_measure)/2
             v_max = np.amax(v_measure)
             v_max_array.append(v_max)
             
@@ -75,7 +82,8 @@ def main():
             i_array = list(filter(None, i_array))
             i_measure = np.array(i_array[0:len(i_array)-1]).astype(np.float)
             i_measure = ((i_measure*3.3)/4095)/i_gain
-            i_measure = i_measure - np.amax(i_measure)/2 # To remove (forse)
+            if division == "S":
+                i_measure = i_measure - np.amax(i_measure)/2
             i_max = np.amax(i_measure)
             i_max_array.append(i_max)
             
@@ -87,6 +95,7 @@ def main():
             p_app_array.append((v_max*i_max/2))
             p_m_array.append(v_max*i_max/2 * np.cos(min(phase, 90)*np.pi/180))
             q_array.append(v_max*i_max/2 * np.sin(min(phase, 90)*np.pi/180))
+            
         
         separator = "------------------------------------------------------------------------------"
         print("\n", separator)
@@ -183,7 +192,6 @@ def readMeasures(measures, serialport):
     GPIO.output(23,GPIO.LOW)
 
 def phase_from_string(str1): 
-    # str1 = "1234.50[\x0e\n"
     start = 0
     if str1[0] == "-":
         first = int(str1[0:2])
