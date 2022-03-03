@@ -117,9 +117,9 @@ def main():
         u_cos_phase = uncertaintyCosPhaseShift(phase_array)
         u_sin_phase = uncertaintySenPhaseShift(phase_array)
         
-        u_apparent_power = uncertaintyPropagatedApparentPower(ui, uv)
-        u_active_power = uncertaintyPropagatedActivePower(ui,uv,u_cos_phase)
-        u_reactive_power = uncertaintyPropagatedReactivePower(ui, uv, u_sin_phase)
+        u_apparent_power = uncertaintyPropagatedApparentPower(i_max, v_max, ui, uv)
+        u_active_power = uncertaintyPropagatedActivePower(i_max, v_max, phase_avg, ui, uv, u_cos_phase)
+        u_reactive_power = uncertaintyPropagatedReactivePower(i_max, v_max, phase_avg, ui, uv, u_sin_phase)
         
         p_avg = np.mean(np.array(p_m_array))*TIME
         p_app = np.mean(np.array(p_app_array))*TIME
@@ -175,14 +175,14 @@ def uncertaintySenPhaseShift(l):
     u = np.sqrt(variance/len(phase_sin_array))
     return u
 
-def uncertaintyPropagatedActivePower(ui, uv, ucosPhase):
-    return math.sqrt(ui**2 + uv**2 + ucosPhase**2)
+def uncertaintyPropagatedActivePower(i, v, phase, ui, uv, ucosPhase):
+    return math.sqrt((((i/2)*np.cos(phase))**2)*(ui**2) + (((v/2)*np.cos(phase))**2)*(uv**2) + (((-v*i/2)*np.sin(phase))**2)*(ucosPhase**2))
 
-def uncertaintyPropagatedReactivePower(ui, uv, usenPhase):
-    return math.sqrt(ui**2 + uv**2 + usenPhase**2)
+def uncertaintyPropagatedReactivePower(i, v, phase, ui, uv, usenPhase):
+    return math.sqrt((((i/2)*np.sin(phase))**2)*(ui**2) + (((v/2)*np.sin(phase))**2)*(uv**2) + (((v*i/2)*np.cos(phase))**2)*(usenPhase**2))
 
-def uncertaintyPropagatedApparentPower(ui, uv):
-    return math.sqrt(ui**2 + uv**2)
+def uncertaintyPropagatedApparentPower(i, v, ui, uv):
+    return math.sqrt(((i/2)**2)*(ui**2) + ((v/2)**2)*(uv**2))
 
     
 def readMeasures(measures, serialport):
